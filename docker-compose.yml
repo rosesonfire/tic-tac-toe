@@ -45,7 +45,11 @@ services:
       - redis # uses redis as data source
   redis: # Redis server for temporary persistence
     env_file: ./.env
-    image: redis
+    build: ./redis/docker
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"] # Run redis with this configuration
+    volumes:
+      - ./redis/data:/data # Used to mount the persistence folder
+      - ./redis/docker/redis.conf:/usr/local/etc/redis/redis.conf # Used to configure redis
     healthcheck: # Used to make sure the container healthy
       test: ["CMD", "curl", "-f", "http://localhost:6379"]
       interval: 30s

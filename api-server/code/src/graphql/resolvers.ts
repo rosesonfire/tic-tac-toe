@@ -21,9 +21,9 @@ import { GameNotInitializedError, PositionValueError } from './errors';
 @Resolver(Game)
 // eslint-disable-next-line import/prefer-default-export
 export class GameResolver {
-  @Query(() => Game)
-  async game(): Promise<Game> {
-    return (await Db.fetchGame()) ?? Db.saveGame(new Game());
+  @Query(() => Game, { nullable: true })
+  async game(): Promise<Game | null> {
+    return Db.fetchGame();
   }
 
   @Mutation(() => Game!)
@@ -57,5 +57,14 @@ export class GameResolver {
   @Subscription({ topics: CONFIG.NEW_LOGS_TOPIC })
   newLog(@Root() game: Game): Game {
     return game;
+  }
+
+  @Mutation(() => Game!)
+  async startNewGame(@PubSub() pubSub: PubSubEngine): Promise<Game> {
+    const savedGame = await Db.saveGame(new Game());
+
+    await pubSub.publish(CONFIG.NEW_LOGS_TOPIC, savedGame);
+
+    return savedGame;
   }
 }
