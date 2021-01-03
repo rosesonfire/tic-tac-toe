@@ -5,9 +5,14 @@ import {
   Query,
   Mutation,
   Args,
+  Subscription,
+  Root,
+  PubSub,
+  PubSubEngine,
 } from 'type-graphql';
 
 import Db from '@db';
+import CONFIG from '@config';
 
 import { Game } from './types';
 import { MakeMoveInput } from './arguments';
@@ -22,7 +27,10 @@ export class GameResolver {
   }
 
   @Mutation(() => Game!)
-  async makeMove(@Args() { col, player, row }: MakeMoveInput): Promise<Game> {
+  async makeMove(
+    @Args() { col, player, row }: MakeMoveInput,
+      @PubSub() pubSub: PubSubEngine,
+  ): Promise<Game> {
     if (col < 0 || col > 2) {
       throw new PositionValueError('col', col);
     }
@@ -39,6 +47,15 @@ export class GameResolver {
 
     game.grid.rows[row].items[col] = player;
 
+    const savedGame = await Db.saveGame(game);
+
+    await pubSub.publish(CONFIG.NEW_LOGS_TOPIC, savedGame);
+
+    return savedGame;
+  }
+
+  @Subscription({ topics: CONFIG.NEW_LOGS_TOPIC })
+  newLog(@Root() game: Game): Game {
     return game;
   }
 }

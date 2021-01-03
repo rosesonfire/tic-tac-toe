@@ -29,6 +29,7 @@ services:
     ports:
       - 4000:4000 # runs on this port in production
       - 4001:4001 # runs on this port in development
+      - 9230:9230 # debug inspector runs on this port in development
     volumes:
       - ./api-server/docker/build:/build # Used to mount the buld file to run when container is up
       - ./api-server/docker/build-for-production:/build-for-production # Used to mount the buld-for-production file to run when container is up

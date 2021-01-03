@@ -8,6 +8,7 @@ module.exports = {
   plugins: [
     new NodemonPlugin({
       delay: '1000',
+      nodeArgs: ['--inspect=0.0.0.0:9230'],
       script: './dist/api-server.js',
       watch: path.resolve('./dist'),
       // args: ['demo'],

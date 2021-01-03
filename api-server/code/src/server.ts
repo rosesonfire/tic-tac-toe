@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
@@ -15,8 +16,16 @@ app.use(cors({
 
 server.applyMiddleware({ app });
 
-app.listen(
-  { port: CONFIG.PORT },
-  // eslint-disable-next-line no-console
-  () => console.log(`🚀 Server ready at http://localhost:${CONFIG.PORT}${server.graphqlPath}`),
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen(
+  CONFIG.PORT,
+  () => {
+    // eslint-disable-next-line no-console
+    console.log(`🚀 Server ready at http://localhost:${CONFIG.PORT}${server.graphqlPath}`);
+
+    // eslint-disable-next-line no-console
+    console.log(`🚀 Subscriptions ready at ws://localhost:${CONFIG.PORT}${server.subscriptionsPath}`);
+  },
 );

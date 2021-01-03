@@ -50,3 +50,36 @@ http://localhost:4001
 ```bash
 ../shell api-server
 ```
+
+## Debug
+
+- Put `debugger` in code where necessary.
+  - VSCode:
+    1. Add this task in `.vscode/tasks.json`:
+        ```json
+        {
+          "version": "2.0.0",
+          "tasks": [
+            {
+              "label": "clear-editor-history",
+              "command": "${command:workbench.action.clearEditorHistory}"
+            }
+          ]
+        }
+        ```
+    1. Add this debugger configuration in `.vscode/launch.json` and lauch after starting server:
+        ```json
+        {
+          "version": "0.2.0",
+          "configurations": [
+            {
+              "type": "node",
+              "request": "attach",
+              "name": "Launch Program",
+              "skipFiles": ["<node_internals>/**"],
+              "port": 9230,
+              "preLaunchTask": "clear-editor-history"
+            }
+          ]
+        }
+        ```

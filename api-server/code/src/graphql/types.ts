@@ -37,8 +37,8 @@ export class Game {
   @Field(() => Player, { nullable: true })
   winner: Player | null;
 
-  constructor(grid?: Grid, activePlayer?: Player, isComplete?: boolean, winner?: Player) {
-    this.grid = grid ?? {
+  constructor(game?: Game) {
+    this.grid = game?.grid ?? {
       rows: [
         {
           items: [Player.O, Player.X, Player.O],
@@ -52,14 +52,14 @@ export class Game {
       ],
     };
 
-    this.activePlayer = activePlayer ?? Player.X;
-    this.isComplete = isComplete ?? false;
-    this.winner = winner ?? null;
+    this.activePlayer = game?.activePlayer ?? Player.X;
+    this.isComplete = game?.isComplete ?? false;
+    this.winner = game?.winner ?? null;
   }
 
   // TODO: use library for serialization and deserialization like serialize-javascript
   serialize = (): string => JSON.stringify(this);
 
   // TODO: use library for serialization and deserialization like serialize-javascript
-  static deserialize = (stringified: string): Game => JSON.parse(stringified);
+  static deserialize = (stringified: string): Game => new Game(JSON.parse(stringified));
 }
