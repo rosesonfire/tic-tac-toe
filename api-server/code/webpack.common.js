@@ -29,6 +29,8 @@ module.exports = {
     alias: {
       '@config': path.resolve(__dirname, 'src', 'config'),
       '@constants': path.resolve(__dirname, 'src', 'constants'),
+      '@db': path.resolve(__dirname, 'src', 'db'),
+      '@graphql': path.resolve(__dirname, 'src', 'graphql'),
     },
     extensions: ['.ts', '.js'],
   },

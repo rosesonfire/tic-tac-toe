@@ -14,10 +14,12 @@
     "incremental": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@config": ["src/config"],
-      "@constants": ["src/constants"],
+      "@config": ["config"],
+      "@constants": ["constants"],
+      "@db": ["db"],
+      "@graphql": ["graphql"],
     }
   }
 }

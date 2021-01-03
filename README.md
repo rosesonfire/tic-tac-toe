@@ -16,6 +16,7 @@ A simple tac tac toe game with
 
 - `front-end`: the React front end
 - `api-server`: a graphQL server for serving the data
+- `redis`: a Redis server for storing the temporary data
 
 # Production
 
@@ -31,6 +32,7 @@ Set `ENV=production` in [.env](.env) for all services.
 
 - front-end: http://localhost:3000
 - api-server: http://localhost:4000
+- redis: http://localhost:6379 (Same as development)
 
 # Development
 
@@ -64,6 +66,7 @@ Set `ENV=development` in [docker-compose.yml](docker-compose.yml) for all servic
 
 - front-end: http://localhost:3001
 - api-server: http://localhost:4001
+- redis: http://localhost:6379 (Same as production)
 
 ## View logs
 
