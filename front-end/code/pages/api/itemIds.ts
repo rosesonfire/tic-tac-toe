@@ -12,7 +12,7 @@ const handler: NextApiHandler<ItemId[]> = (async (req, res) => {
   if (req.method === METHODS.GET) {
     const { q } = req.query;
 
-    const { data: { items } } = await GraphQLClient.get<{ items: Item[] }>(gql`
+    const { data: { items } } = await GraphQLClient.query<{ items: Item[] }>(gql`
       {
         items(q: "${q}") {
           id

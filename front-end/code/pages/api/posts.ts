@@ -10,7 +10,7 @@ const METHODS = {
 
 const handler: NextApiHandler<Post[]> = (async (req, res) => {
   if (req.method === METHODS.GET) {
-    const { data: { posts } } = await GraphQLClient.get<{ posts: Post[] }>(gql`
+    const { data: { posts } } = await GraphQLClient.query<{ posts: Post[] }>(gql`
       {
         posts {
           id

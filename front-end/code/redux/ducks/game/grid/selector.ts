@@ -2,10 +2,8 @@ import { createStructuredSelector } from 'reselect';
 
 import { GridState } from './reducer';
 
-export type GridSelectorsResult = {
-  // active: PlayersState['active'],
-};
+export type GridSelectorsResult = GridState;
 
 export default createStructuredSelector<GridState | undefined, GridSelectorsResult>({
-  // active: state => state?.active ?? null,
+  rows: state => state?.rows ?? null,
 });

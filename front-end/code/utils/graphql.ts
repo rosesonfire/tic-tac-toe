@@ -9,19 +9,6 @@ import {
 import { apiServer } from '@config/endpoints';
 
 const typeDefs = gql`
-  enum Player {
-    O
-    X
-  }
-
-  type Row {
-    items: [Player!]!
-  }
-
-  type Grid {
-    rows: [Row!]!
-  }
-
   type Game {
     activePlayer: Player!
     grid: Grid!
@@ -29,8 +16,30 @@ const typeDefs = gql`
     winner: Player
   }
 
+  type Grid {
+    rows: [Row!]!
+  }
+
+  type Mutation {
+    makeMove(row: Int!, col: Int!, player: Player!): Game!
+    startNewGame: Game!
+  }
+
+  enum Player {
+    O
+    X
+  }
+
   type Query {
-    game: Game!
+    game: Game
+  }
+
+  type Row {
+    items: [Player]!
+  }
+
+  type Subscription {
+    newLog: Game!
   }
 `;
 
@@ -48,5 +57,9 @@ const client = new ApolloClient({
 });
 
 export default class GraphQLClient {
-  static get = <T>(query: any) => client.query<T>({ query });
+  static clear = () => client.clearStore();
+
+  static mutate = <T>(mutation: any) => client.mutate<T>({ mutation });
+
+  static query = <T>(query: any) => client.query<T>({ query });
 }

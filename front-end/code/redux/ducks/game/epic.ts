@@ -10,24 +10,28 @@ import { GameActionFactory } from './actions';
 import { epic as playersEpic } from './players';
 import { epic as gridEpic } from './grid';
 
-type InitializeGameReturnType = ReturnType<typeof GameActionFactory.initializeGame>;
-
 const initializeGame: Epic = $action => $action.pipe(
-  ofType<InitializeGameReturnType>(GameActionFactory.initializeGame.type),
+  ofType<ReturnType<typeof GameActionFactory.initializeGame>>(
+    GameActionFactory.initializeGame.type,
+  ),
   mergeMap(
     () => from(
-      GraphQLClient.get<{ game: Game }>(gql`{
-        game {
-          activePlayer
-          isComplete
-          winner
-          grid {
-            rows {
-              items
+      // GraphQLClient.clear()
+      Promise.resolve()
+        .then(() => (
+          GraphQLClient.query<{ game: Game | null }>(gql`{
+            game {
+              activePlayer
+              isComplete
+              winner
+              grid {
+                rows {
+                  items
+                }
+              }
             }
-          }
-        }
-      }`)
+          }`)
+        ))
         .then(({ data: { game } }) => game)
         .catch(err => {
           // eslint-disable-next-line no-console
@@ -37,9 +41,52 @@ const initializeGame: Epic = $action => $action.pipe(
         }),
     ),
   ),
+  map(game => (game ? GameActionFactory.setGame(game) : GameActionFactory.startNewGame())),
+);
+
+const startNewGame: Epic = $action => $action.pipe(
+  ofType<ReturnType<typeof GameActionFactory.startNewGame>>(
+    GameActionFactory.startNewGame.type,
+  ),
+  mergeMap(
+    () => from(
+      GraphQLClient.mutate<{ startNewGame: Game }>(gql`
+        mutation {
+          startNewGame {
+            winner
+            activePlayer
+            grid {
+              rows {
+                items
+              }
+            }
+          }
+        }
+      `)
+        .then(({ data, errors }) => {
+          if (errors) {
+            // eslint-disable-next-line no-console
+            console.error(errors);
+
+            throw errors[0];
+          }
+
+          return data!.startNewGame;
+        })
+        .catch(err => {
+          // eslint-disable-next-line no-console
+          console.error('Failed send request to start new game', err);
+
+          return null;
+        }),
+    ),
+  ),
   map(game => (game ? GameActionFactory.setGame(game) : GameActionFactory.failSettingGame())),
 );
 
 export default combineEpics(
-  initializeGame, playersEpic, gridEpic,
+  initializeGame,
+  playersEpic,
+  gridEpic,
+  startNewGame,
 );

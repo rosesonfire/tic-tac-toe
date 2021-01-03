@@ -1,36 +1,59 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import { Player } from '@feTypes/business';
 import { ChangeHandler } from '@utils/react-utils';
 import { PlayerActionFactory } from '@redux/ducks/game/players/actions';
-import { togglePlayer } from '@utils/player';
+import { selector, State } from '@redux/ducks';
+import { Offset } from '@feTypes/business';
+import { noop } from '@utils';
 
 import styles from './gameGridItem.module.scss';
 
 type Props = {
-  player: Player,
+  col: Offset,
+  row: Offset,
 };
 
-// eslint-disable-next-line react/prop-types
-const GameGridItem: NextPage<Props> = ({ player }) => {
+const GameGridItem: NextPage<Props> = ({ col, row }) => {
   const dispatch = useDispatch();
 
-  const handleClick = ChangeHandler.getClickHandler(() => dispatch(
-    PlayerActionFactory.setActivePlayer(
-      togglePlayer(player),
-    ),
-  ));
+  const {
+    game: {
+      grid: {
+        rows,
+      },
+      players: {
+        active: activePlayer,
+      },
+    },
+  } = useSelector<State, ReturnType<typeof selector>>(selector);
+
+  const isLoading = !rows;
+  const player = rows?.[row].items[col];
+
+  const handleClick = ChangeHandler.getClickHandler(
+    () => activePlayer && dispatch(PlayerActionFactory.makeMove(row, col, activePlayer)),
+  );
 
   return (
     <div
-      className={styles['fe-GameGridItem']}
-      onClick={handleClick}
+      className={classNames({
+        [styles['fe-GameGridItem']]: true,
+        [styles['is-loading']]: isLoading,
+      })}
+      onClick={isLoading ? noop : handleClick}
     >
       {player}
     </div>
   );
+};
+
+GameGridItem.propTypes = {
+  col: PropTypes.oneOf<Offset>([0, 1, 2]).isRequired,
+  row: PropTypes.oneOf<Offset>([0, 1, 2]).isRequired,
 };
 
 export default GameGridItem;

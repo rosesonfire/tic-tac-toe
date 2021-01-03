@@ -3,8 +3,10 @@ export enum Player {
   X = 'X',
 }
 
+export type Offset = 0 | 1 | 2;
+
 export type Row = {
-  items: [Player, Player, Player],
+  items: [Player | null, Player | null, Player | null],
 };
 
 export type Rows = [Row, Row, Row];

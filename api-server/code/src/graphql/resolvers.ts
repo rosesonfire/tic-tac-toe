@@ -14,9 +14,11 @@ import {
 import Db from '@db';
 import CONFIG from '@config';
 
-import { Game } from './types';
+import { Game, Player } from './types';
 import { MakeMoveInput } from './arguments';
 import { GameNotInitializedError, PositionValueError } from './errors';
+
+const togglePlayer = (player: Player) => (player === Player.O ? Player.X : Player.O);
 
 @Resolver(Game)
 // eslint-disable-next-line import/prefer-default-export
@@ -46,6 +48,7 @@ export class GameResolver {
     }
 
     game.grid.rows[row].items[col] = player;
+    game.activePlayer = togglePlayer(player);
 
     const savedGame = await Db.saveGame(game);
 

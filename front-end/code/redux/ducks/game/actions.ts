@@ -4,6 +4,7 @@ import { createAction } from '@reduxjs/toolkit';
 enum ActionType {
   INITIALIZE_GAME = 'INITIALIZE_GAME',
   SET_GAME = 'SET_GAME',
+  START_NEW_GAME = 'START_NEW_GAME',
   FAIL_SETTING_GAME = 'FAIL_SETTING_GAME',
 }
 
@@ -11,16 +12,10 @@ enum ActionType {
 export class GameActionFactory {
   static failSettingGame = createAction(
     ActionType.FAIL_SETTING_GAME,
-    () => ({
-      payload: null,
-    }),
   );
 
   static initializeGame = createAction(
     ActionType.INITIALIZE_GAME,
-    () => ({
-      payload: null,
-    }),
   );
 
   static setGame = createAction(
@@ -28,5 +23,9 @@ export class GameActionFactory {
     (game: Game) => ({
       payload: game,
     }),
+  );
+
+  static startNewGame = createAction(
+    ActionType.START_NEW_GAME,
   );
 }

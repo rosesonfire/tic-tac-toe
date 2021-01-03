@@ -13,8 +13,8 @@ registerEnumType(Player, {
 
 @ObjectType()
 export class Row {
-  @Field(() => [Player!]!)
-  items!: [Player, Player, Player];
+  @Field(() => [Player]!, { nullable: 'items' })
+  items!: [Player | null, Player | null, Player | null];
 }
 
 @ObjectType()
@@ -41,13 +41,13 @@ export class Game {
     this.grid = game?.grid ?? {
       rows: [
         {
-          items: [Player.O, Player.X, Player.O],
+          items: [null, null, null],
         },
         {
-          items: [Player.O, Player.X, Player.O],
+          items: [null, null, null],
         },
         {
-          items: [Player.O, Player.X, Player.O],
+          items: [null, null, null],
         },
       ],
     };

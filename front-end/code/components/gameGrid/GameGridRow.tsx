@@ -1,17 +1,28 @@
 import React from 'react';
 import { NextPage } from 'next';
+import PropTypes from 'prop-types';
 
-import { Player } from '@feTypes/business';
+import { Offset } from '@feTypes/business';
 
 import GameGridItem from './GameGridItem';
 import styles from './gameGridRow.module.scss';
 
-const GameGridRow: NextPage = () => (
+type Props = {
+  offset: Offset,
+};
+
+const GameGridRow: NextPage<Props> = ({ offset }) => (
   <div className={styles['fe-GameGridRow']}>
-    <GameGridItem player={Player.O} />
-    <GameGridItem player={Player.X} />
-    <GameGridItem player={Player.O} />
+    <>
+      <GameGridItem col={0} row={offset} />
+      <GameGridItem col={1} row={offset} />
+      <GameGridItem col={2} row={offset} />
+    </>
   </div>
 );
+
+GameGridRow.propTypes = {
+  offset: PropTypes.oneOf<Offset>([0, 1, 2]).isRequired,
+};
 
 export default GameGridRow;

@@ -1,18 +1,20 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { Player } from '@feTypes/business';
+import { Offset, Player } from '@feTypes/business';
 
 enum PlayerActionType {
-  SET_ACTIVE_PLAYER = 'SET_ACTIVE_PLAYER',
+  MAKE_MOVE = 'MAKE_MOVE',
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export class PlayerActionFactory {
-  static setActivePlayer = createAction(
-    PlayerActionType.SET_ACTIVE_PLAYER,
-    (player: Player) => ({
+  static makeMove = createAction(
+    PlayerActionType.MAKE_MOVE,
+    (row: Offset, col: Offset, player: Player) => ({
       payload: {
+        col,
         player,
+        row,
       },
     }),
   );

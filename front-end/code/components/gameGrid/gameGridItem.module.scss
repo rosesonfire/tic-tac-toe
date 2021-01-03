@@ -1,12 +1,65 @@
 @import '~styles/colors';
 @import '~styles/vars';
 
+@keyframes loading {
+  0% {
+    background-color: $red;
+    color: $light-pink;
+  }
+
+  12% {
+    background-color: $purple;
+    color: $light-pink;
+  }
+
+  25% {
+    background-color: $black-russian;
+    color: $pigeon-post;
+  }
+
+  37% {
+    background-color: $arapawa;
+    color: $pigeon-post;
+  }
+
+  50% {
+    background-color: $aqua;
+    color: $pigeon-post;
+  }
+
+  62% {
+    background-color: $arapawa;
+    color: $pigeon-post;
+  }
+
+  75% {
+    background-color: $black-russian;
+    color: $pigeon-post;
+  }
+
+  87% {
+    background-color: $purple;
+    color: $light-pink;
+  }
+
+  100% {
+    background-color: $red;
+    color: $light-pink;
+  }
+}
+
 .fe-GameGridItem {
   align-items: center;
   border: 1px solid $black;
   cursor: pointer;
   display: flex;
   flex: 1;
+  height: 50px;
   justify-content: center;
   margin: 2px;
+  width: 50px;
+
+  &.is-loading {
+    animation: loading 3s ease-in-out infinite;
+  }
 }
