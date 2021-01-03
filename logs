@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+
+while true
+do
+  docker-compose logs -f --tail 100 $1
+  echo "$(date) - retrying to access log ...."
+  sleep 1
+done

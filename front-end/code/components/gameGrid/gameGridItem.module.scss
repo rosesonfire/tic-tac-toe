@@ -1,0 +1,12 @@
+@import '~styles/colors';
+@import '~styles/vars';
+
+.fe-GameGridItem {
+  align-items: center;
+  border: 1px solid $black;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  margin: 2px;
+}

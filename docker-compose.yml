@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  front-end: # Front end service
+    env_file: ./.env
+    build: ./front-end/docker # Location of Dockerfile
+    command: /build # Script to run inside the container once the container is up
+    ports:
+      - 3000:3000 # front-end runs on this port in production
+      - 3001:3001 # front-end runs on this port in development
+      - 9229:9229 # debug inspector for front-end runs on this port in development
+    volumes:
+      - ./front-end/docker/build:/build # Used to mount the buld file to run when container is up
+      - ./front-end/docker/build-for-production:/build-for-production # Used to mount the buld-for-production file to run when container is up
+      - ./front-end/docker/build-for-development:/build-for-development # Used to mount the buld-for-development file to run when container is up
+      - ./front-end/code:/code # Used to mount the main code on the container
+    healthcheck: # Used to make sure the component healthy in production mode (i.e. port 3000)
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - api-server # should wait until api-server container is up
+  api-server: # API server
+    env_file: ./.env
+    build: ./api-server/docker # Location of Dockerfile
+    command: /build # Script to run inside the container once the container is up
+    ports:
+      - 4000:4000 # api-server runs on this port in production
+      - 4001:4001 # api-server runs on this port in development
+    volumes:
+      - ./api-server/docker/build:/build # Used to mount the buld file to run when container is up
+      - ./api-server/docker/build-for-production:/build-for-production # Used to mount the buld-for-production file to run when container is up
+      - ./api-server/docker/build-for-development:/build-for-development # Used to mount the buld-for-development file to run when container is up
+      - ./api-server/code:/code # Used to mount the main code on the container
+    healthcheck: # Used to make sure the component healthy
+      test: ["CMD", "curl", "-f", "http://localhost:4000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s

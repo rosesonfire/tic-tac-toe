@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -x
+set -e
+
+# Address to the api-server in development mode
+api_server=http://api-server:4001
+
+echo "Starting in 'development' mode ..."
+
+# Check linting once to avoid hindrance during development
+while ! yarn run lint
+do
+  echo "$(date) - Linting failing..."
+  sleep 1
+done
+
+# Wait till 'api-server' is running
+while ! curl $api_server
+do
+  echo "$(date) - waiting for api-server ..."
+  sleep 1
+done
+
+# Run server in watch mode
+while ! yarn run dev
+do
+  echo "$(date) - restarting server ..."
+  sleep 1
+done

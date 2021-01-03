@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -x
+set -e
+
+# Address to the api-server in production mode
+api_server=http://api-server:4000
+
+echo "Starting in 'production' mode ..."
+
+# Check for linting errors
+yarn run lint
+
+# Build for production
+yarn run build
+
+# Wait till 'api-server' is running
+while ! curl $api_server
+do
+  echo "$(date) - waiting for api-server ..."
+  sleep 1
+done
+
+# Start the server in production
+yarn start

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -x
+set -e
+
+docker-compose exec -w /code $1 /bin/bash

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -x
+set -e
+
+echo "Starting in 'production' mode ..."
+
+# Check for linting errors
+yarn run 
+
+# Build for production
+yarn run build
+
+# Start the server in production (port 5000)
+yarn start

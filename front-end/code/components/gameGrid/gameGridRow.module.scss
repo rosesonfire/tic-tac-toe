@@ -1,0 +1,8 @@
+@import '~styles/colors';
+@import '~styles/vars';
+
+.fe-GameGridRow {
+  border: 1px solid $black;
+  display: flex;
+  margin: 2px;
+}

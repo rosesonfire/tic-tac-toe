@@ -1,0 +1,12 @@
+ls: 
+  .ts: camelCase
+  .js: regex:^$
+
+ignore:
+  - ./node_modules
+  - ./.eslintrc.js
+  - ./dist
+  - ./webpack.common.js
+  - ./webpack.dev.js
+  - ./webpack.production.js
+  - ./webpack.config.js

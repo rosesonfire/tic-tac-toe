@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -x
+set -e
+
+echo "Starting in 'development' mode ..."
+
+# Check linting once to avoid hindrance during development
+while ! yarn run lint
+do
+  echo "$(date) - Linting failing..."
+  sleep 1
+done
+
+# Run server in watch mode
+while ! yarn dev
+do
+  echo "$(date) - restarting server ..."
+  sleep 1
+done

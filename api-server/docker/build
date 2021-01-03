@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -x
+set -e
+
+# Print the current environment (production or development)
+echo "env = $ENV"
+
+# Set working directory
+cd /code
+
+yarn install
+
+# If environment is 'production' build the project.
+# If environment is 'development' run the project in 'development' mode
+if [ "$ENV" = "production" ]
+then
+  /build-for-production
+else
+  /build-for-development
+fi
