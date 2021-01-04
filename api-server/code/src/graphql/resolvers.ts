@@ -18,13 +18,15 @@ import CONFIG from '@config';
 import {
   DetectionResult,
   Player,
-  PossiblePlayer,
-  RowItems,
+  PossiblePlayerTriplet,
 } from '@graphql';
 
 import {
+  Cell,
+  CellTriplet,
   Game,
-  Grid,
+  offsetValues,
+  PossibleWinner,
   Row,
   Rows,
 } from './types';
@@ -34,47 +36,56 @@ import { GameNotInitializedError, NonEmptyCellError, PositionValueError } from '
 
 const togglePlayer = (player: Player) => (player === Player.O ? Player.X : Player.O);
 
-const findMatchedPlayer = ([one, two, three]: RowItems): PossiblePlayer => (
+const findMatchedPlayer = (
+  [one, two, three]: PossiblePlayerTriplet,
+  cells: CellTriplet,
+): PossibleWinner => (
   (one !== null && one === two && two === three)
-    ? one
+    ? [one, cells]
     : null
 );
 
-const detectHorizontalStraightWinner = (rows: Grid['rows']): PossiblePlayer => (
-  findMatchedPlayer(rows[0].items)
-    ?? findMatchedPlayer(rows[1].items)
-    ?? findMatchedPlayer(rows[2].items)
+const detectHorizontalStraightWinner = (rows: Rows): PossibleWinner => (
+  findMatchedPlayer(rows[0].items, [new Cell(0, 0), new Cell(0, 1), new Cell(0, 2)])
+    ?? findMatchedPlayer(rows[1].items, [new Cell(1, 0), new Cell(1, 1), new Cell(1, 2)])
+    ?? findMatchedPlayer(rows[2].items, [new Cell(2, 0), new Cell(2, 1), new Cell(2, 2)])
 );
 
-const detectVerticalStraightWinner = (rows: Grid['rows']): PossiblePlayer => {
-  let winner: PossiblePlayer = null;
+const detectVerticalStraightWinner = (rows: Rows): PossibleWinner => (
+  offsetValues.reduce<PossibleWinner>(
+    (winner_, col) => (
+      winner_
+        ?? findMatchedPlayer(
+          [
+            rows[0].items[col],
+            rows[1].items[col],
+            rows[2].items[col],
+          ],
+          [new Cell(0, col), new Cell(1, col), new Cell(2, col)],
+        )
+    ),
+    null,
+  )
+);
 
-  for (let j = 0; j < 3; j += 1) {
-    winner = findMatchedPlayer([
-      rows[0].items[j],
-      rows[1].items[j],
-      rows[2].items[j],
-    ]);
-
-    if (winner) {
-      break;
-    }
-  }
-
-  return winner;
-};
-
-const detectDiagonalStraightWinner = (rows: Grid['rows']): PossiblePlayer => (
-  findMatchedPlayer([
-    rows[0].items[0],
-    rows[1].items[1],
-    rows[2].items[2],
-  ])
-    ?? findMatchedPlayer([
-      rows[0].items[2],
+const detectDiagonalStraightWinner = (rows: Rows): PossibleWinner => (
+  findMatchedPlayer(
+    [
+      rows[0].items[0],
       rows[1].items[1],
-      rows[2].items[0],
-    ])
+      rows[2].items[2],
+    ],
+    [new Cell(0, 0), new Cell(1, 1), new Cell(2, 2)],
+  ) ?? (
+    findMatchedPlayer(
+      [
+        rows[0].items[2],
+        rows[1].items[1],
+        rows[2].items[0],
+      ],
+      [new Cell(0, 2), new Cell(1, 1), new Cell(2, 0)],
+    )
+  )
 );
 
 const hasRowEmptyCell = (
@@ -90,7 +101,7 @@ const haveRowsEmptyCell = (rows: Rows): boolean => (
 
 const detectResult = ({ grid: { rows } }: Game): DetectionResult => ({
   hasEmptyCell: haveRowsEmptyCell(rows),
-  winner: detectHorizontalStraightWinner(rows)
+  possibleWinner: detectHorizontalStraightWinner(rows)
     ?? detectVerticalStraightWinner(rows)
     ?? detectDiagonalStraightWinner(rows),
 });
@@ -138,10 +149,11 @@ export class GameResolver {
     });
 
     // DO not detect result from logs since it is not the source of truth
-    const { hasEmptyCell, winner } = detectResult(game);
+    const { hasEmptyCell, possibleWinner } = detectResult(game);
 
-    game.winner = winner;
-    game.isComplete = Boolean(winner || !hasEmptyCell);
+    game.winner = possibleWinner?.[0] ?? null;
+    game.winningCells = possibleWinner?.[1] ?? null;
+    game.isComplete = Boolean(game.winner || !hasEmptyCell);
 
     const savedGame = await Db.saveGame(game);
 

@@ -1,11 +1,17 @@
 import { gql } from '@apollo/client';
 
 export default gql`
+  type Cell {
+    row: Int!
+    col: Int!
+  }
+
   type Game {
     activePlayer: Player!
     grid: Grid!
     isComplete: Boolean!
     winner: Player
+    winningCells: [Cell!]
     logs: [Log!]!
   }
 

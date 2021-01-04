@@ -24,6 +24,8 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
     game: {
       gameResult: {
         isCompleted,
+        winner,
+        winningCells,
       },
       grid: {
         rows,
@@ -39,6 +41,18 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
   const isLoading = shouldShowOff || !rows;
   const player = rows?.[row].items[col];
   const isClickable = !isLoading && !isCompleted && !player;
+  const isWinningcell = (
+    !isLoading
+    && isCompleted
+    && winner === player
+    && (
+      winningCells?.reduce<boolean>((isWinningCell, cell) => (
+        isWinningCell
+        || (cell.col === col && cell.row === row)
+      ), false)
+      ?? null
+    )
+  );
 
   const handleClick = ChangeHandler.getClickHandler(
     () => activePlayer && dispatch(PlayerActionFactory.makeMove(row, col, activePlayer)),
@@ -52,6 +66,7 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
         [styles['fe-GameGridItem--player2']]: player === Player.O,
         [styles['is-loading']]: isLoading,
         [styles['is-disabled']]: !isClickable,
+        [styles['is-notWinningCell']]: isCompleted && !isWinningcell,
       })}
       onClick={isClickable ? handleClick : noop}
     >

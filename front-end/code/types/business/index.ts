@@ -5,9 +5,15 @@ export enum Player {
   X = 'X',
 }
 
-export type Offset = 0 | 1 | 2;
+export type Cell = {
+  col: Offset,
+  row: Offset,
+};
 
+export type Offset = 0 | 1 | 2;
 export type PossiblePlayer = Player | null;
+export type CellTriplet = [Cell, Cell, Cell];
+export type PossibleCellTriplet = CellTriplet | null;
 
 export type Row = {
   items: [PossiblePlayer, PossiblePlayer, PossiblePlayer],
@@ -32,6 +38,7 @@ export type Game = {
   isComplete: boolean,
   logs: Log[],
   winner: PossiblePlayer,
+  winningCells: PossibleCellTriplet,
 };
 
 export enum GameStateMarkerMessage {

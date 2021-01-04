@@ -10,18 +10,15 @@ import {
 
 export type Offset = 0 | 1 | 2;
 
+export const offsetValues: [Offset, Offset, Offset] = [0, 1, 2];
+
 export enum Player {
   O = 'O',
   X = 'X',
 }
 
 export type PossiblePlayer = Player | null;
-export type RowItems = [PossiblePlayer, PossiblePlayer, PossiblePlayer];
-
-export type DetectionResult = {
-  hasEmptyCell: boolean,
-  winner: PossiblePlayer,
-};
+export type PossiblePlayerTriplet = [PossiblePlayer, PossiblePlayer, PossiblePlayer];
 
 registerEnumType(Player, {
   name: 'Player',
@@ -30,7 +27,7 @@ registerEnumType(Player, {
 @ObjectType()
 export class Row {
   @Field(() => [Player]!, { nullable: 'items' })
-  items!: RowItems;
+  items!: PossiblePlayerTriplet;
 }
 
 export type Rows = [Row, Row, Row];
@@ -57,21 +54,47 @@ export class Log {
 }
 
 @ObjectType()
+export class Cell {
+  @Field(() => Int!)
+  row: Offset;
+
+  @Field(() => Int!)
+  col: Offset;
+
+  constructor(row: Offset, col: Offset) {
+    this.row = row;
+    this.col = col;
+  }
+}
+
+export type CellTriplet = [Cell, Cell, Cell];
+export type PossibleCellTriplet = CellTriplet | null;
+export type PossibleWinner = [Player, CellTriplet] | null;
+
+export type DetectionResult = {
+  hasEmptyCell: boolean,
+  possibleWinner: PossibleWinner,
+};
+
+@ObjectType()
 export class Game {
   @Field(() => Player)
-  activePlayer!: Player;
+  activePlayer: Player;
 
   @Field()
-  grid!: Grid;
+  grid: Grid;
 
   @Field()
-  isComplete!: boolean;
+  isComplete: boolean;
 
   @Field(() => Player, { nullable: true })
   winner: PossiblePlayer;
 
+  @Field(() => [Cell!], { nullable: true })
+  winningCells: PossibleCellTriplet;
+
   @Field(() => [Log!]!)
-  logs!: Log[];
+  logs: Log[];
 
   constructor(game?: Game) {
     this.grid = game?.grid ?? {
@@ -91,6 +114,7 @@ export class Game {
     this.activePlayer = game?.activePlayer ?? Player.X;
     this.isComplete = game?.isComplete ?? false;
     this.winner = game?.winner ?? null;
+    this.winningCells = game?.winningCells ?? null;
     this.logs = game?.logs ?? [];
   }
 

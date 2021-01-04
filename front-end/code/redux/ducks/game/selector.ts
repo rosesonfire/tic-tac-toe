@@ -25,6 +25,7 @@ GameResultSelectorResult
 >({
   isCompleted: state => state?.isCompleted ?? false,
   winner: state => state?.winner ?? null,
+  winningCells: state => state?.winningCells ?? null,
 });
 
 export type GameSelectorsResult = {

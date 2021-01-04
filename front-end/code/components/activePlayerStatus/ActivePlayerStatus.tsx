@@ -41,7 +41,7 @@ const ActivePlayerStatus: NextPage = () => {
       })}
     >
       <div className={styles['fe-ActivePlayerStatus-name']}>
-        {isLoading ? 'Loading...' : text}
+        {isLoading ? 'loading...' : text}
       </div>
     </div>
   );

@@ -6,6 +6,10 @@ export const gameFragment = gql`
     activePlayer
     isComplete
     winner
+    winningCells {
+      row
+      col
+    }
     grid {
       rows {
         items

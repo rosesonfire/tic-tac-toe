@@ -1,6 +1,6 @@
 import { CombinedState, combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-import { PossiblePlayer } from '@feTypes/business';
+import { PossibleCellTriplet, PossiblePlayer } from '@feTypes/business';
 
 import { GameActionFactory } from './actions';
 
@@ -22,19 +22,25 @@ import {
 export type GameResultState = {
   isCompleted: boolean,
   winner: PossiblePlayer,
+  winningCells: PossibleCellTriplet,
 };
 
 const INITIAL_GAME_RESULT_STATE = {
   isCompleted: false,
   winner: null,
+  winningCells: null,
 };
 
 const safelySetGameResult = (
-  state: GameResultState, isCompleted: boolean, winner: PossiblePlayer,
+  state: GameResultState,
+  isCompleted: boolean,
+  winner: PossiblePlayer,
+  winningCells: PossibleCellTriplet,
 ) => ({
   ...state,
   isCompleted,
   winner,
+  winningCells,
 });
 
 const gameResultReducer = createReducer<GameResultState>(
@@ -44,8 +50,8 @@ const gameResultReducer = createReducer<GameResultState>(
       GameActionFactory.setGame,
       (
         state,
-        { payload: { isComplete, winner } },
-      ) => safelySetGameResult(state, isComplete, winner),
+        { payload: { isComplete, winner, winningCells } },
+      ) => safelySetGameResult(state, isComplete, winner, winningCells),
     ),
 );
 

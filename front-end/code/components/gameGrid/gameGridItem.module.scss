@@ -83,6 +83,11 @@
     background-color: transparent;
   }
 
+  &.is-notWinningCell {
+    opacity: 0.2;
+    transition: opacity 0.5s ease-in-out;
+  }
+
   &--player1 {
     color: $arapawa;
   }
