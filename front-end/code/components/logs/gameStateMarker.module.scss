@@ -1,12 +1,22 @@
 @import '~styles/colors';
 @import '~styles/vars';
 
+@keyframes appearSlowly {
+  0% {
+    font-size: 0;
+  }
+}
+
 .fe-GameStateMarker {
   background-color: $arapawa;
   border-radius: 4px;
   color: $white;
   margin: 16px 4px;
   padding: 0 4px;
+
+  &:not(&--noAnimation) {
+    animation: appearSlowly 1s ease-in-out;
+  }
 
   &--player1 {
     background: $player1-background-fallback;

@@ -65,7 +65,7 @@ const Logs: NextPage<Props> = ({ className = DEFAULT_PROPS.className }) => {
         <Log key={id} col={col} player={player} row={row} />
       ))}
 
-      <GameStateMarker message={GameStateMarkerMessage.GAME_STARTED} />
+      <GameStateMarker message={GameStateMarkerMessage.GAME_STARTED} noAnimation />
     </div>
   );
 };
