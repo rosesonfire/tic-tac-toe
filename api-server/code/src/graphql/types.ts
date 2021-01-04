@@ -1,17 +1,27 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/member-ordering */
-import { Offset } from '@api-types';
 import 'reflect-metadata';
 import {
   ObjectType,
   Field,
   registerEnumType,
   Int,
+  ID,
 } from 'type-graphql';
+
+export type Offset = 0 | 1 | 2;
 
 export enum Player {
   O = 'O',
   X = 'X',
 }
+
+export type PossiblePlayer = Player | null;
+export type RowItems = [PossiblePlayer, PossiblePlayer, PossiblePlayer];
+
+export type DetectionResult = {
+  hasEmptyCell: boolean,
+  winner: PossiblePlayer,
+};
 
 registerEnumType(Player, {
   name: 'Player',
@@ -20,17 +30,22 @@ registerEnumType(Player, {
 @ObjectType()
 export class Row {
   @Field(() => [Player]!, { nullable: 'items' })
-  items!: [Player | null, Player | null, Player | null];
+  items!: RowItems;
 }
+
+export type Rows = [Row, Row, Row];
 
 @ObjectType()
 export class Grid {
   @Field(() => [Row!]!)
-  rows!: [Row, Row, Row];
+  rows!: Rows;
 }
 
 @ObjectType()
 export class Log {
+  @Field(() => ID!)
+  id!: string;
+
   @Field(() => Player!)
   player!: Player;
 
@@ -53,7 +68,7 @@ export class Game {
   isComplete!: boolean;
 
   @Field(() => Player, { nullable: true })
-  winner: Player | null;
+  winner: PossiblePlayer;
 
   @Field(() => [Log!]!)
   logs!: Log[];

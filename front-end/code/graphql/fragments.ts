@@ -12,6 +12,7 @@ export const gameFragment = gql`
       }
     }
     logs {
+      id
       player
       row
       col

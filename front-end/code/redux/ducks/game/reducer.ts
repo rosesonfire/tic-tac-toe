@@ -1,8 +1,6 @@
 import { CombinedState, combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-
-import CONFIG from '@config';
-import { Environment } from '@constants';
+import { PossiblePlayer } from '@feTypes/business';
 
 import { GameActionFactory } from './actions';
 
@@ -21,33 +19,45 @@ import {
   reducer as logsReducer,
 } from './logs';
 
-const failInitializationReducer = createReducer<null>(
-  null,
+export type GameResultState = {
+  isCompleted: boolean,
+  winner: PossiblePlayer,
+};
+
+const INITIAL_GAME_RESULT_STATE = {
+  isCompleted: false,
+  winner: null,
+};
+
+const safelySetGameResult = (
+  state: GameResultState, isCompleted: boolean, winner: PossiblePlayer,
+) => ({
+  ...state,
+  isCompleted,
+  winner,
+});
+
+const gameResultReducer = createReducer<GameResultState>(
+  INITIAL_GAME_RESULT_STATE,
   builder => builder
     .addCase(
-      GameActionFactory.failSettingGame,
-      (state) => {
-        const errorMessage = CONFIG.ENV === Environment.development
-          ? 'Failed to set game. Please check if all services in docker-compose are running.'
-          : 'Failed to set game.';
-
-        // eslint-disable-next-line no-console
-        console.error(errorMessage);
-
-        return state;
-      },
+      GameActionFactory.setGame,
+      (
+        state,
+        { payload: { isComplete, winner } },
+      ) => safelySetGameResult(state, isComplete, winner),
     ),
 );
 
 export type GameState = CombinedState<{
-  failedInitialization: null,
+  gameResult: GameResultState,
   grid: GridState,
   logs: LogsState,
   players: PlayersState,
 }>;
 
 export default combineReducers<GameState>({
-  failedInitialization: failInitializationReducer,
+  gameResult: gameResultReducer,
   grid: gridReducer,
   logs: logsReducer,
   players: playersReducer,

@@ -1,6 +1,6 @@
 import { createStructuredSelector } from 'reselect';
 
-import { GameState } from './reducer';
+import { GameResultState, GameState } from './reducer';
 
 import {
   selector as playersSelector,
@@ -17,7 +17,18 @@ import {
   LogsSelectorsResult,
 } from './logs';
 
+type GameResultSelectorResult = GameResultState;
+
+const gameResultSelector = createStructuredSelector<
+GameResultState | undefined,
+GameResultSelectorResult
+>({
+  isCompleted: state => state?.isCompleted ?? false,
+  winner: state => state?.winner ?? null,
+});
+
 export type GameSelectorsResult = {
+  gameResult: GameResultSelectorResult,
   grid: GridSelectorsResult,
   isInitialized: boolean,
   logs: LogsSelectorsResult,
@@ -25,6 +36,7 @@ export type GameSelectorsResult = {
 };
 
 export default createStructuredSelector<GameState | undefined, GameSelectorsResult>({
+  gameResult: state => gameResultSelector(state?.gameResult),
   grid: state => gridSelector(state?.grid),
   isInitialized: state => Boolean(state?.players.active),
   logs: state => logsSelector(state?.logs),

@@ -5,16 +5,16 @@ import { Log } from '@feTypes/business';
 import { GameActionFactory } from '../actions';
 
 export type LogsState = {
-  logs: Log[] | null,
+  items: Log[] | null,
 };
 
 const INITIAL_STATE: LogsState = {
-  logs: null,
+  items: null,
 };
 
 const safelySetLogs = (state: LogsState, logs: Log[]): LogsState => ({
   ...state,
-  logs,
+  items: logs,
 });
 
 export default createReducer<LogsState>(

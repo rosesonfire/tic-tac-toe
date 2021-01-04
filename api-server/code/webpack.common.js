@@ -27,7 +27,6 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      '@api-types': path.resolve(__dirname, 'src', 'types'),
       '@config': path.resolve(__dirname, 'src', 'config'),
       '@constants': path.resolve(__dirname, 'src', 'constants'),
       '@db': path.resolve(__dirname, 'src', 'db'),

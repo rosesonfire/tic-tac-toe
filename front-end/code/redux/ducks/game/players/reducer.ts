@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { ErrorType, ErrorFactory } from '@errors';
-import { Log, Player } from '@feTypes/business';
+import { Log, Player, PossiblePlayer } from '@feTypes/business';
 
 import { GameActionFactory } from '../actions';
 
 export type PlayersState = {
-  active: Player | null,
+  active: PossiblePlayer,
 };
 
 const INITIAL_STATE: PlayersState = {

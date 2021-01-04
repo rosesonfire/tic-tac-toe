@@ -13,7 +13,7 @@
   }
 
   25% {
-    background-color: $black-russian;
+    background-color: $special-black;
     color: $pigeon-post;
   }
 
@@ -33,7 +33,7 @@
   }
 
   75% {
-    background-color: $black-russian;
+    background-color: $special-black;
     color: $pigeon-post;
   }
 
@@ -62,6 +62,20 @@
   }
 }
 
+@keyframes slideInFromLeftHalfWay {
+  0% {
+    right: 20%;
+  }
+
+  50% {
+    right: -8px;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
 @keyframes slideInFromRight {
   0% {
     right: -40%;
@@ -76,21 +90,28 @@
   }
 }
 
+@keyframes slideInFromRightHalfWay {
+  0% {
+    right: -20%;
+  }
+
+  50% {
+    right: 8px;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
 .fe-ActivePlayerStatus {
   align-items: center;
   display: flex;
+  justify-content: center;
   margin-bottom: 16px;
   overflow: hidden;
   padding: 0 8px;
   width: 100%;
-
-  @media screen and (max-width: 850px) {
-    font-size: 12px;
-  }
-
-  @media screen and (max-width: 650px) {
-    font-size: 10px;
-  }
 
   &-name {
     align-items: center;
@@ -104,7 +125,8 @@
     position: relative;
   }
 
-  &.is-loading &-name {
+  &.is-loading &-name,
+  &.is-completed &-name {
     animation: loading 3s ease-in-out infinite;
   }
 
@@ -114,9 +136,9 @@
 
   &--player1 &-name {
     animation: slideInFromRight 0.25s ease-out;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, $black-russian 0%, $arapawa 35%, $aqua 100%);
-    color: $pigeon-post;
+    background: $player1-background-fallback;
+    background: $player1-background;
+    color: $player1-color;
   }
 
   &--player2 {
@@ -125,8 +147,22 @@
 
   &--player2 &-name {
     animation: slideInFromLeft 0.25s ease-out;
-    background: $red;
-    background: linear-gradient(120deg, $red 0%, $purple 100%);
-    color: $light-pink;
+    background: $player2-background-fallback;
+    background: $player2-background;
+    color: $player2-color;
+  }
+
+  &.is-completed {
+    justify-content: center;
+  }
+
+  &.is-completed#{&}--player1 &-name {
+    animation: slideInFromLeftHalfWay 0.25s ease-out, loading 3s ease-in-out infinite;
+    background: unset;
+  }
+
+  &.is-completed#{&}--player2 &-name {
+    animation: slideInFromRightHalfWay 0.25s ease-out, loading 3s ease-in-out infinite;
+    background: unset;
   }
 }

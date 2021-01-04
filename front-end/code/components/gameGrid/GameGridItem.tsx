@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { ChangeHandler } from '@utils/react-utils';
 import { PlayerActionFactory } from '@redux/ducks/game/players/actions';
 import { selector, State } from '@redux/ducks';
-import { Offset, Player } from '@feTypes/business';
+import { Offset, Player, propTypes } from '@feTypes/business';
 import { noop } from '@utils';
 
 import styles from './gameGridItem.module.scss';
@@ -18,10 +17,14 @@ type Props = {
 };
 
 const GameGridItem: NextPage<Props> = ({ col, row }) => {
+  const [shouldShowOff, setShouldShowOff] = useState(true);
   const dispatch = useDispatch();
 
   const {
     game: {
+      gameResult: {
+        isCompleted,
+      },
       grid: {
         rows,
       },
@@ -31,9 +34,11 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
     },
   } = useSelector<State, ReturnType<typeof selector>>(selector);
 
-  const isLoading = !rows;
+  setTimeout(() => setShouldShowOff(false), 2000);
+
+  const isLoading = shouldShowOff || !rows;
   const player = rows?.[row].items[col];
-  const isSet = Boolean(player);
+  const isClickable = !isLoading && !isCompleted && !player;
 
   const handleClick = ChangeHandler.getClickHandler(
     () => activePlayer && dispatch(PlayerActionFactory.makeMove(row, col, activePlayer)),
@@ -46,18 +51,18 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
         [styles['fe-GameGridItem--player1']]: player === Player.X,
         [styles['fe-GameGridItem--player2']]: player === Player.O,
         [styles['is-loading']]: isLoading,
-        [styles['is-set']]: isSet,
+        [styles['is-disabled']]: !isClickable,
       })}
-      onClick={(isLoading || isSet) ? noop : handleClick}
+      onClick={isClickable ? handleClick : noop}
     >
-      {player}
+      {isLoading ? null : player}
     </div>
   );
 };
 
 GameGridItem.propTypes = {
-  col: PropTypes.oneOf<Offset>([0, 1, 2]).isRequired,
-  row: PropTypes.oneOf<Offset>([0, 1, 2]).isRequired,
+  col: propTypes.col.isRequired,
+  row: propTypes.row.isRequired,
 };
 
 export default GameGridItem;

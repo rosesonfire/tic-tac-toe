@@ -20,7 +20,6 @@
       "@constants": ["constants"],
       "@db": ["db"],
       "@graphql": ["graphql"],
-      "@api-types": ["types"],
     }
   }
 }

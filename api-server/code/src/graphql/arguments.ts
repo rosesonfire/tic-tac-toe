@@ -2,9 +2,7 @@
 import 'reflect-metadata';
 import { Field, Int, ArgsType } from 'type-graphql';
 
-import { Offset } from '@api-types';
-
-import { Player } from './types';
+import { Offset, Player } from '@graphql';
 
 @ArgsType()
 // eslint-disable-next-line import/prefer-default-export

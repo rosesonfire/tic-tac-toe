@@ -5,20 +5,19 @@ import { useSelector } from 'react-redux';
 
 import { Player } from '@feTypes/business';
 import { selector, State } from '@redux/ducks';
+import { PLAYER_NAMES } from '@constants';
 
 import styles from './activePlayerStatus.module.scss';
-
-// TODO: Make this dynamic
-const playerNames = {
-  [Player.X]: 'Player One',
-  [Player.O]: 'Player Two',
-};
 
 const ActivePlayerStatus: NextPage = () => {
   const [shouldShowOff, setShouldShowOff] = useState(true);
 
   const {
     game: {
+      gameResult: {
+        isCompleted,
+        winner,
+      },
       players: {
         active: activePlayer,
       },
@@ -27,19 +26,22 @@ const ActivePlayerStatus: NextPage = () => {
 
   setTimeout(() => setShouldShowOff(false), 2000);
 
+  const player = isCompleted ? winner : activePlayer;
+  const isLoading = shouldShowOff || !activePlayer;
+  const text = player ? PLAYER_NAMES[player] : 'DRAW';
+
   return (
     <div
       className={classNames({
         [styles['fe-ActivePlayerStatus']]: true,
-        [styles['fe-ActivePlayerStatus--player1']]: activePlayer === Player.X,
-        [styles['fe-ActivePlayerStatus--player2']]: activePlayer === Player.O,
-        [styles['is-loading']]: shouldShowOff || !activePlayer,
+        [styles['fe-ActivePlayerStatus--player1']]: !isLoading && player === Player.X,
+        [styles['fe-ActivePlayerStatus--player2']]: !isLoading && player === Player.O,
+        [styles['is-loading']]: isLoading,
+        [styles['is-completed']]: isCompleted,
       })}
     >
       <div className={styles['fe-ActivePlayerStatus-name']}>
-        {(!shouldShowOff && activePlayer)
-          ? playerNames[activePlayer]
-          : 'Loading...'}
+        {isLoading ? 'Loading...' : text}
       </div>
     </div>
   );

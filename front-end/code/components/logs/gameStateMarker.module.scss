@@ -1,9 +1,11 @@
 @import '~styles/colors';
 @import '~styles/vars';
 
-.fe-Log {
+.fe-GameStateMarker {
+  background-color: $arapawa;
   border-radius: 4px;
-  margin: 4px;
+  color: $white;
+  margin: 16px 4px;
   padding: 0 4px;
 
   &--player1 {

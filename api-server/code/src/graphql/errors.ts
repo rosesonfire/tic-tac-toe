@@ -2,7 +2,7 @@
 import 'reflect-metadata';
 import { ValidationError } from 'apollo-server-express';
 
-import { Offset } from '@api-types';
+import { Offset } from '@graphql';
 
 export class PositionValueError extends ValidationError {
   constructor(positionName: string, value: Number) {

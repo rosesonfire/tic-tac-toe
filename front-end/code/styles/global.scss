@@ -24,6 +24,14 @@ body {
   :focus {
     outline: none;
   }
+
+  @media screen and (max-width: 850px) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 650px) {
+    font-size: 10px;
+  }
 }
 
 * {
@@ -53,6 +61,7 @@ main {
   flex-direction: column;
   justify-content: center;
   padding: 2vh 0;
+  user-select: none;
 }
 
 a {
@@ -71,6 +80,7 @@ code {
 
 :root {
   --app-background-color: #{$white};
+  --item-side-length: 8vw;
 }
 
 .fe-App {

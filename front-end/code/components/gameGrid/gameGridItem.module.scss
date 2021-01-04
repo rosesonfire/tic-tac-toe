@@ -13,7 +13,7 @@
   }
 
   25% {
-    background-color: $black-russian;
+    background-color: $special-black;
     color: $pigeon-post;
   }
 
@@ -33,7 +33,7 @@
   }
 
   75% {
-    background-color: $black-russian;
+    background-color: $special-black;
     color: $pigeon-post;
   }
 
@@ -49,8 +49,6 @@
 }
 
 .fe-GameGridItem {
-  --item-side-length: 8vw;
-
   align-items: center;
   cursor: pointer;
   display: flex;
@@ -59,7 +57,6 @@
   height: var(--item-side-length);
   justify-content: center;
   margin: 0;
-  user-select: none;
   width: var(--item-side-length);
 
   &:first-child,
@@ -78,11 +75,11 @@
     animation: loading 3s ease-in-out infinite;
   }
 
-  &.is-set {
+  &.is-disabled {
     cursor: default;
   }
 
-  &.is-set:hover {
+  &.is-disabled:hover {
     background-color: transparent;
   }
 

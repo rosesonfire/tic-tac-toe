@@ -14,6 +14,7 @@ export default gql`
   }
 
   type Log {
+    id: ID!
     player: Player!
     row: Int!
     col: Int!

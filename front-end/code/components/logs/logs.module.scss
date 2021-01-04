@@ -2,7 +2,13 @@
 @import '~styles/vars';
 
 .fe-Logs {
+  align-items: center;
   border: 1px solid $grey;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-height: calc(var(--item-side-length) * 6);
+  overflow: hidden;
   padding: 8px;
 }
