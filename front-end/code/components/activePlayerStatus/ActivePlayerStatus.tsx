@@ -8,9 +8,13 @@ import { selector, State } from '@redux/ducks';
 
 import styles from './activePlayerStatus.module.scss';
 
-const ActivePlayerStatus: NextPage = () => {
-  // const { game: { playerNames } } = useSelector<State, ReturnType<typeof selector>>(selector);
+// TODO: Make this dynamic
+const playerNames = {
+  [Player.X]: 'Player One',
+  [Player.O]: 'Player Two',
+};
 
+const ActivePlayerStatus: NextPage = () => {
   const {
     game: {
       players: {
@@ -19,17 +23,12 @@ const ActivePlayerStatus: NextPage = () => {
     },
   } = useSelector<State, ReturnType<typeof selector>>(selector);
 
-  const playerNames = {
-    [Player.O]: 'hello mr. long logngfsdfsdf sfd name ',
-    [Player.X]: 'shrtNm',
-  };
-
   return (
     <div
       className={classNames({
         [styles['fe-ActivePlayerStatus']]: true,
-        [styles['fe-ActivePlayerStatus--player1']]: activePlayer === Player.O,
-        [styles['fe-ActivePlayerStatus--player2']]: activePlayer === Player.X,
+        [styles['fe-ActivePlayerStatus--player1']]: activePlayer === Player.X,
+        [styles['fe-ActivePlayerStatus--player2']]: activePlayer === Player.O,
         [styles['is-loading']]: !activePlayer,
       })}
     >

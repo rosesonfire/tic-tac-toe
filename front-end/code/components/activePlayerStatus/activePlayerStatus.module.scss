@@ -48,39 +48,76 @@
   }
 }
 
+@keyframes slideInFromLeft {
+  0% {
+    right: 100vw;
+  }
+
+  50% {
+    right: -1vw;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    right: -100vw;
+  }
+
+  50% {
+    right: 1vw;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
 .fe-ActivePlayerStatus {
   align-items: center;
-  border: 1px solid $black;
-  border-radius: 16px;
   display: flex;
-  justify-content: center;
-  margin: 2px;
-  width: 100px;
+  overflow: hidden;
+  padding: 0 4px;
+  width: 100%;
 
   &-name {
     align-items: center;
+    border: 1px solid $black;
+    border-radius: 16px;
     display: block;
     justify-content: center;
     line-height: 1.5em;
-    overflow: hidden;
+    margin: 4px 0;
     padding: 0 8px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    position: relative;
   }
 
-  &.is-loading {
+  &.is-loading &-name {
     animation: loading 3s ease-in-out infinite;
   }
 
   &--player1 {
-    background: $red;
-    background: linear-gradient(120deg, $red 0%, $purple 100%);
-    color: $light-pink;
+    justify-content: flex-start;
   }
 
-  &--player2 {
+  &--player1 &-name {
+    animation: slideInFromRight 0.25s ease-out;
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, $black-russian 0%, $arapawa 35%, $aqua 100%);
     color: $pigeon-post;
+  }
+
+  &--player2 {
+    justify-content: flex-end;
+  }
+
+  &--player2 &-name {
+    animation: slideInFromLeft 0.25s ease-out;
+    background: $red;
+    background: linear-gradient(120deg, $red 0%, $purple 100%);
+    color: $light-pink;
   }
 }
