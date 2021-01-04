@@ -50,11 +50,11 @@
 
 @keyframes slideInFromLeft {
   0% {
-    right: 100vw;
+    right: 40%;
   }
 
   50% {
-    right: -1vw;
+    right: -8px;
   }
 
   100% {
@@ -64,11 +64,11 @@
 
 @keyframes slideInFromRight {
   0% {
-    right: -100vw;
+    right: -40%;
   }
 
   50% {
-    right: 1vw;
+    right: 8px;
   }
 
   100% {
@@ -79,8 +79,9 @@
 .fe-ActivePlayerStatus {
   align-items: center;
   display: flex;
+  margin-bottom: 16px;
   overflow: hidden;
-  padding: 0 4px;
+  padding: 0 8px;
   width: 100%;
 
   &-name {

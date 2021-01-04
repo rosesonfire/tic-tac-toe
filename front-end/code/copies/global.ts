@@ -1,2 +1,2 @@
-export const siteTitle = 'Next.js Sample Website';
-export const siteDescription = 'Learn how to build a personal website using Next.js';
+export const siteTitle = 'Tic Tac Toe';
+export const siteDescription = 'A simple game of tic tac toe';

@@ -16,7 +16,7 @@ import CONFIG from '@config';
 
 import { Game, Player } from './types';
 import { MakeMoveInput } from './arguments';
-import { GameNotInitializedError, PositionValueError } from './errors';
+import { GameNotInitializedError, NonEmptyCellError, PositionValueError } from './errors';
 
 const togglePlayer = (player: Player) => (player === Player.O ? Player.X : Player.O);
 
@@ -47,7 +47,13 @@ export class GameResolver {
       throw new GameNotInitializedError();
     }
 
-    game.grid.rows[row].items[col] = player;
+    const { items } = game.grid.rows[row];
+
+    if (items[col]) {
+      throw new NonEmptyCellError(row, col);
+    }
+
+    items[col] = player;
     game.activePlayer = togglePlayer(player);
 
     const savedGame = await Db.saveGame(game);

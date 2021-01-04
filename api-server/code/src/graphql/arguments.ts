@@ -2,16 +2,18 @@
 import 'reflect-metadata';
 import { Field, Int, ArgsType } from 'type-graphql';
 
+import { Offset } from '@api-types';
+
 import { Player } from './types';
 
 @ArgsType()
 // eslint-disable-next-line import/prefer-default-export
 export class MakeMoveInput {
   @Field(() => Int!)
-  row!: 0 | 1 | 2;
+  row!: Offset;
 
   @Field(() => Int!)
-  col!: 0 | 1 | 2;
+  col!: Offset;
 
   @Field(() => Player!)
   player!: Player;

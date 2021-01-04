@@ -49,17 +49,38 @@
 }
 
 .fe-GameGridItem {
+  --item-side-length: 8vw;
+
   align-items: center;
-  border: 1px solid $black;
   cursor: pointer;
   display: flex;
   flex: 1;
-  height: 50px;
+  font-size: 50px;
+  height: var(--item-side-length);
   justify-content: center;
-  margin: 2px;
-  width: 50px;
+  margin: 0;
+  width: var(--item-side-length);
 
   &.is-loading {
     animation: loading 3s ease-in-out infinite;
+  }
+
+  &.is-set {
+    cursor: default;
+  }
+
+  &:first-child,
+  &:nth-child(2) {
+    border-color: $black;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+  }
+
+  &--player1 {
+    color: $arapawa;
+  }
+
+  &--player2 {
+    color: $purple;
   }
 }

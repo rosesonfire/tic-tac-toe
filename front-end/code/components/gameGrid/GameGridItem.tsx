@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { ChangeHandler } from '@utils/react-utils';
 import { PlayerActionFactory } from '@redux/ducks/game/players/actions';
 import { selector, State } from '@redux/ducks';
-import { Offset } from '@feTypes/business';
+import { Offset, Player } from '@feTypes/business';
 import { noop } from '@utils';
 
 import styles from './gameGridItem.module.scss';
@@ -33,6 +33,7 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
 
   const isLoading = !rows;
   const player = rows?.[row].items[col];
+  const isSet = Boolean(player);
 
   const handleClick = ChangeHandler.getClickHandler(
     () => activePlayer && dispatch(PlayerActionFactory.makeMove(row, col, activePlayer)),
@@ -42,9 +43,12 @@ const GameGridItem: NextPage<Props> = ({ col, row }) => {
     <div
       className={classNames({
         [styles['fe-GameGridItem']]: true,
+        [styles['fe-GameGridItem--player1']]: player === Player.X,
+        [styles['fe-GameGridItem--player2']]: player === Player.O,
         [styles['is-loading']]: isLoading,
+        [styles['is-set']]: isSet,
       })}
-      onClick={isLoading ? noop : handleClick}
+      onClick={(isLoading || isSet) ? noop : handleClick}
     >
       {player}
     </div>

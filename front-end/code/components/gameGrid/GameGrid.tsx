@@ -6,7 +6,6 @@ import styles from './gameGrid.module.scss';
 
 const GameGrid: NextPage = () => (
   <div className={styles['fe-GameGrid']}>
-    Game grid
     <GameGridRow offset={0} />
     <GameGridRow offset={1} />
     <GameGridRow offset={2} />

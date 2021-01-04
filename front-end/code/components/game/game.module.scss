@@ -2,5 +2,13 @@
 @import '~styles/vars';
 
 .fe-Game {
-  border: 1px solid $black;
+  display: flex;
+
+  &-actionButtons {
+    margin-top: 24px;
+  }
+
+  &-logs {
+    margin-left: 36px;
+  }
 }
