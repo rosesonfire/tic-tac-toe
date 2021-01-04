@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 
-import { ChangeHandler } from '@utils/react-utils';
+import { ChangeHandler, Children } from '@utils/react-utils';
 
 import styles from './button.module.scss';
 
 export type Props = {
-  onClick: () => void
-  text: string,
+  children: Children,
+  onClick: () => any
 };
 
-const Button: FC<Props> = ({ onClick, text }) => (
+const Button: FC<Props> = ({ children, onClick }) => (
   <button
     className={styles['fe-Button']}
     onClick={ChangeHandler.getClickHandler(onClick)}
@@ -18,15 +18,15 @@ const Button: FC<Props> = ({ onClick, text }) => (
   >
     <span className={styles['fe-Button-text']}>
       <strong>
-        {text}
+        {children}
       </strong>
     </span>
   </button>
 );
 
 Button.propTypes = {
+  children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
 };
 
 export default Button;
