@@ -13,10 +13,29 @@
   }
 }
 
-.fe-Button {
-  animation-duration: 0.5s;
-  animation-name: ripple;
+@keyframes blowInFace {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
 
+  50% {
+    opacity: 0;
+    transform: scale(50);
+  }
+
+  51% {
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fe-Button {
+  animation: blowInFace 0.5s;
   background-color: $grey;
   border: 0;
   border-radius: 4px;
@@ -42,8 +61,7 @@
   }
 
   &:not(:active)::after {
-    animation-duration: 0.5s;
-    animation-name: ripple;
+    animation: ripple 0.5s;
   }
 
   &:hover {

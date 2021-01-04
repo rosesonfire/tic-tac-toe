@@ -55,11 +55,24 @@
   cursor: pointer;
   display: flex;
   flex: 1;
-  font-size: 50px;
+  font-size: var(--item-side-length);
   height: var(--item-side-length);
   justify-content: center;
   margin: 0;
+  user-select: none;
   width: var(--item-side-length);
+
+  &:first-child,
+  &:nth-child(2) {
+    border-color: $white;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+  }
+
+  &:hover {
+    background-color: $alto;
+    transition: background-color 0.25s linear;
+  }
 
   &.is-loading {
     animation: loading 3s ease-in-out infinite;
@@ -69,11 +82,8 @@
     cursor: default;
   }
 
-  &:first-child,
-  &:nth-child(2) {
-    border-color: $black;
-    border-style: solid;
-    border-width: 0 1px 0 0;
+  &.is-set:hover {
+    background-color: transparent;
   }
 
   &--player1 {
