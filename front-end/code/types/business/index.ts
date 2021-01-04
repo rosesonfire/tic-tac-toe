@@ -15,9 +15,16 @@ export type Grid = {
   rows: Rows,
 };
 
+export type Log = {
+  col: Offset,
+  player: Player,
+  row: Offset,
+};
+
 export type Game = {
   activePlayer: Player,
   grid: Grid,
   isComplete: boolean,
+  logs: Log[],
   winner: Player | null,
 };

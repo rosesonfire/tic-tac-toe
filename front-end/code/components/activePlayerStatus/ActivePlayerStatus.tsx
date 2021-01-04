@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from 'next';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ const playerNames = {
 };
 
 const ActivePlayerStatus: NextPage = () => {
+  const [shouldShowOff, setShouldShowOff] = useState(true);
+
   const {
     game: {
       players: {
@@ -23,16 +25,22 @@ const ActivePlayerStatus: NextPage = () => {
     },
   } = useSelector<State, ReturnType<typeof selector>>(selector);
 
+  setTimeout(() => setShouldShowOff(false), 2000);
+
   return (
     <div
       className={classNames({
         [styles['fe-ActivePlayerStatus']]: true,
         [styles['fe-ActivePlayerStatus--player1']]: activePlayer === Player.X,
         [styles['fe-ActivePlayerStatus--player2']]: activePlayer === Player.O,
-        [styles['is-loading']]: !activePlayer,
+        [styles['is-loading']]: shouldShowOff || !activePlayer,
       })}
     >
-      <div className={styles['fe-ActivePlayerStatus-name']}>{activePlayer ? playerNames[activePlayer] : 'Loading...'}</div>
+      <div className={styles['fe-ActivePlayerStatus-name']}>
+        {(!shouldShowOff && activePlayer)
+          ? playerNames[activePlayer]
+          : 'Loading...'}
+      </div>
     </div>
   );
 };

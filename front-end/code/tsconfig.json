@@ -34,6 +34,7 @@
         "@feTypes/*": ["types/*"],
         "@errors": ["errors"],
         "@constants": ["constants"],
+        "@graphql": ["graphql"],
     }
   },
   "exclude": ["node_modules"],

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 
 import { ErrorType, ErrorFactory } from '@errors';
-import { Player } from '@feTypes/business';
+import { Log, Player } from '@feTypes/business';
 
 import { GameActionFactory } from '../actions';
 
@@ -18,10 +18,15 @@ const createActivePlayerAlreadySetError = (player: Player) => ErrorFactory.creat
   `Active player already set to ${player}`,
 );
 
-const safelySetActivePlayer = (state: PlayersState, player: Player): PlayersState => {
+const safelySetActivePlayer = (
+  state: PlayersState,
+  player: Player,
+  logs: Log[],
+): PlayersState => {
   const { active } = state;
+  const isNewGame = logs.length === 0;
 
-  if (active === player) {
+  if (!isNewGame && active === player) {
     // eslint-disable-next-line no-console
     console.error(createActivePlayerAlreadySetError(player));
   }
@@ -37,6 +42,10 @@ export default createReducer<PlayersState>(
   builder => builder
     .addCase(
       GameActionFactory.setGame,
-      (state, { payload: { activePlayer } }) => safelySetActivePlayer(state, activePlayer),
+      (state, { payload: { activePlayer, logs } }) => safelySetActivePlayer(
+        state,
+        activePlayer,
+        logs,
+      ),
     ),
 );

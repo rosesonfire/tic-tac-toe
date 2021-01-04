@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import { DefaultProps } from '@utils/react-utils';
 
 import StartNewGame from './StartNewGame';
-import styles from './actionButtons.module.scss';
 
 type Props = {
   className?: string,
@@ -19,8 +18,8 @@ const DEFAULT_PROPS: DefaultProps<Props> = {
 const ActionButtons: NextPage<Props> = ({ className = DEFAULT_PROPS.className }) => (
   <div
     className={classNames({
-      [styles['fe-ActionButtons']]: true,
       [className]: className,
+      'fe-ActionButtons': true,
     })}
   >
     <StartNewGame />

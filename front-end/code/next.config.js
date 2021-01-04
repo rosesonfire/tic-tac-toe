@@ -12,6 +12,7 @@ module.exports = {
     config.resolve.alias['@feTypes'] = path.resolve(__dirname, 'types/');
     config.resolve.alias['@errors'] = path.resolve(__dirname, 'errors/');
     config.resolve.alias['@constants'] = path.resolve(__dirname, 'constants/');
+    config.resolve.alias['@graphql'] = path.resolve(__dirname, 'graphql/');
 
     return config
   },

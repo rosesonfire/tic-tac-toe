@@ -16,6 +16,11 @@ import {
   reducer as gridReducer,
 } from './grid';
 
+import {
+  LogsState,
+  reducer as logsReducer,
+} from './logs';
+
 const failInitializationReducer = createReducer<null>(
   null,
   builder => builder
@@ -37,11 +42,13 @@ const failInitializationReducer = createReducer<null>(
 export type GameState = CombinedState<{
   failedInitialization: null,
   grid: GridState,
+  logs: LogsState,
   players: PlayersState,
 }>;
 
 export default combineReducers<GameState>({
   failedInitialization: failInitializationReducer,
   grid: gridReducer,
+  logs: logsReducer,
   players: playersReducer,
 });

@@ -2,7 +2,7 @@ import { NextApiHandler } from 'next';
 import { gql } from '@apollo/client';
 
 import { Post } from '@feTypes/business/post';
-import GraphQLClient from '@utils/graphql';
+import graphQLClient from '@graphql';
 
 const METHODS = {
   GET: 'GET',
@@ -10,7 +10,7 @@ const METHODS = {
 
 const handler: NextApiHandler<Post[]> = (async (req, res) => {
   if (req.method === METHODS.GET) {
-    const { data: { posts } } = await GraphQLClient.query<{ posts: Post[] }>(gql`
+    const { data: { posts } } = await graphQLClient.query<{ posts: Post[] }>(gql`
       {
         posts {
           id

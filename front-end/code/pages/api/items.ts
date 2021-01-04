@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
 import { gql } from '@apollo/client';
 
-import GraphQLClient from '@utils/graphql';
+import graphQLClient from '@graphql';
 import { Item } from '@feTypes/business/item';
 
 const METHODS = {
@@ -10,7 +10,7 @@ const METHODS = {
 
 const handler: NextApiHandler<Item[]> = (async (req, res) => {
   if (req.method === METHODS.GET) {
-    const { data: { items } } = await GraphQLClient.query<{ items: Item[] }>(gql`
+    const { data: { items } } = await graphQLClient.query<{ items: Item[] }>(gql`
       {
         items {
           id
