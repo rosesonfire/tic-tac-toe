@@ -7,6 +7,8 @@ A simple tac tac toe game with
 - GraphQL
 - NextJS
 
+<img src="tic_tac_toe.gif" height="300"/>
+
 # Requirements
 
 1. Docker (^18.03.1)
