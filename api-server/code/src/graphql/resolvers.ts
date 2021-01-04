@@ -24,7 +24,7 @@ const togglePlayer = (player: Player) => (player === Player.O ? Player.X : Playe
 // eslint-disable-next-line import/prefer-default-export
 export class GameResolver {
   @Query(() => Game, { nullable: true })
-  async game(): Promise<Game | null> {
+  game(): Promise<Game | null> {
     return Db.fetchGame();
   }
 
@@ -55,6 +55,7 @@ export class GameResolver {
 
     items[col] = player;
     game.activePlayer = togglePlayer(player);
+    game.logs.push({ col, player, row });
 
     const savedGame = await Db.saveGame(game);
 

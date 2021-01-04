@@ -1,6 +1,12 @@
 /* eslint-disable max-classes-per-file, @typescript-eslint/member-ordering */
+import { Offset } from '@api-types';
 import 'reflect-metadata';
-import { ObjectType, Field, registerEnumType } from 'type-graphql';
+import {
+  ObjectType,
+  Field,
+  registerEnumType,
+  Int,
+} from 'type-graphql';
 
 export enum Player {
   O = 'O',
@@ -24,6 +30,18 @@ export class Grid {
 }
 
 @ObjectType()
+export class Log {
+  @Field(() => Player!)
+  player!: Player;
+
+  @Field(() => Int!)
+  row!: Offset;
+
+  @Field(() => Int!)
+  col!: Offset;
+}
+
+@ObjectType()
 export class Game {
   @Field(() => Player)
   activePlayer!: Player;
@@ -36,6 +54,9 @@ export class Game {
 
   @Field(() => Player, { nullable: true })
   winner: Player | null;
+
+  @Field(() => [Log!]!)
+  logs!: Log[];
 
   constructor(game?: Game) {
     this.grid = game?.grid ?? {
@@ -55,6 +76,7 @@ export class Game {
     this.activePlayer = game?.activePlayer ?? Player.X;
     this.isComplete = game?.isComplete ?? false;
     this.winner = game?.winner ?? null;
+    this.logs = game?.logs ?? [];
   }
 
   // TODO: use library for serialization and deserialization like serialize-javascript
