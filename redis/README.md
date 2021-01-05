@@ -34,5 +34,5 @@ http://localhost:6379
 ## Shell into service
 
 ```bash
-docker-compose exec redis /bin/sh
+../shell redis
 ```
