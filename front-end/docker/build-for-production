@@ -11,7 +11,7 @@ echo "Starting in 'production' mode ..."
 # Check for linting errors
 yarn run lint
 
-# Build for production
+# Build for production and export the site as a static HTML in front-end/code/out folder
 yarn run build
 
 # Wait till 'api-server' is running

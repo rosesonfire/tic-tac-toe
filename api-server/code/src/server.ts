@@ -11,7 +11,7 @@ const server = new ApolloServer({ schema });
 const app = express();
 
 app.use(cors({
-  origin: CONFIG.FRONT_END_URL,
+  origin: CONFIG.FRONT_END_URLS,
 }));
 
 server.applyMiddleware({ app });

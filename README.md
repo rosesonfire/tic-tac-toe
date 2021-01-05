@@ -6,10 +6,17 @@ A simple tac tac toe game with
 - Redux-obervables
 - GraphQL
 - NextJS
+- Redis
 
 <img src="tic_tac_toe.gif" height="300"/>
 
-# Requirements
+# Features
+
+1. Persist play state on page reload
+1. Shows game logs
+1. [Static site generation](front-end/README.md#static-site-generation)
+
+# Requirements for development
 
 1. Docker (^18.03.1)
 1. Docker Compose (^1.27.3)
@@ -35,6 +42,7 @@ Set `ENV=production` in [.env](.env) for all services.
 - front-end: http://localhost:3000
 - api-server: http://localhost:4000
 - redis: http://localhost:6379 (Same as development)
+- [Static site generation](front-end/README.md#static-site-generation)
 
 # Development
 

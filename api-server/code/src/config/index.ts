@@ -9,13 +9,18 @@ const COMMON_CONFIG = {
 
 const DEVELOPMENT_CONFIG = {
   ENV: Environment.development,
-  FRONT_END_URL: 'http://localhost:3001',
+  FRONT_END_URLS: [
+    'http://localhost:3001',
+  ],
   PORT: 4001,
 };
 
 const PRODUCTION_CONFIG = {
   ENV: Environment.production,
-  FRONT_END_URL: 'http://localhost:3000',
+  FRONT_END_URLS: [
+    'http://localhost:3000',
+    'http://localhost:8000',
+  ],
   PORT: 4000,
 };
 

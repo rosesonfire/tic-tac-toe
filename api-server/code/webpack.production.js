@@ -12,6 +12,7 @@ module.exports = {
           format: {
             comments: false,
           },
+          keep_classnames: true,
         },
       }),
     ],

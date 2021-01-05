@@ -6,7 +6,7 @@ set -e
 echo "Starting in 'production' mode ..."
 
 # Check for linting errors
-yarn run 
+yarn run lint
 
 # Build for production
 yarn run build

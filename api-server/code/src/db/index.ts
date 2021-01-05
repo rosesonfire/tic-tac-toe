@@ -8,7 +8,7 @@ import { Game } from '@graphql';
 const client = redis.createClient({
   host: CONFIG.REDIS_HOST,
   port: CONFIG.REDIS_PORT,
-  prefix: CONFIG.ENV,
+  prefix: `${CONFIG.ENV}-`,
 });
 
 client.on('error', (error) => {
