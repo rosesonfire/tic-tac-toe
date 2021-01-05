@@ -14,3 +14,4 @@ ignore:
   - ./next.config.js
   - ./pages/_app.tsx
   - ./pages/index.tsx
+  - ./out
