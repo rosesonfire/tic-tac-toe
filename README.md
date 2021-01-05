@@ -10,6 +10,8 @@ A simple tac tac toe game with
 
 <img src="tic_tac_toe.gif" width="300"/>
 
+Forked code from my other project: [Understand Qur'an](https://github.com/rosesonfire/understand-quran)
+
 # Features
 
 1. Persist play state on page reload
