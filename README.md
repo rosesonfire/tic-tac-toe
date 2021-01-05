@@ -16,7 +16,7 @@ Forked code from my other project: [Understand Qur'an](https://github.com/roseso
 
 1. Persist play state on page reload
 1. Shows game logs
-1. [Static site generation](front-end/README.md#static-site-generation)
+1. [Static site generation with NextJS](front-end/README.md#static-site-generation)
 
 # Tech used
 
@@ -33,7 +33,7 @@ Forked code from my other project: [Understand Qur'an](https://github.com/roseso
 ## Frameworks and libraries
 1. <img src="icons/react.png" height="16"/> ReactJS
 1. <img src="icons/nextjs.jpeg" height="16"/> NextJS
-    - Static site generation
+    - With static site generation
 1. <img src="icons/redux.svg" height="16"/> Redux
     - Reselect
     - React Redux
