@@ -8,7 +8,7 @@ A simple tac tac toe game with
 - NextJS
 - Redis
 
-<img src="tic_tac_toe.gif" width="300"/>
+<img src="tic_tac_toe.gif" width="600"/>
 
 Forked code from my other project: [Understand Qur'an](https://github.com/rosesonfire/understand-quran)
 
