@@ -105,3 +105,19 @@ http://localhost:3001
 ```bash
 ../shell front-end
 ```
+
+# Eslint troubleshoot
+
+- If linting not working in VSCode, add this to `.vscode/settings.json`:
+
+```json
+{
+  "files.watcherExclude": {
+    "**/target": true
+  },
+  "eslint.workingDirectories": [
+    "./code"
+  ],
+  "eslint.enable": true
+}
+```
