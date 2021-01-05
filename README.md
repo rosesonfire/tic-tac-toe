@@ -18,6 +18,23 @@ Forked code from my other project: [Understand Qur'an](https://github.com/roseso
 1. Shows game logs
 1. [Static site generation with NextJS](front-end/README.md#static-site-generation)
 
+# Requirements for development
+
+1. Docker (^18.03.1)
+1. Docker Compose (^1.27.3)
+
+# Quick start
+
+```bash
+# Runs all services
+./start
+
+# View logs
+./logs
+
+# Once front-end is up you can access the site via http://localhost:3000
+```
+
 # Tech used
 
 ## Languages
@@ -52,11 +69,6 @@ Forked code from my other project: [Understand Qur'an](https://github.com/roseso
 ## Conventions
 1. [Suite CSS](https://suitcss.github.io/)
 1. [Ducks pattern](https://github.com/erikras/ducks-modular-redux)
-
-# Requirements for development
-
-1. Docker (^18.03.1)
-1. Docker Compose (^1.27.3)
 
 # Services
 
