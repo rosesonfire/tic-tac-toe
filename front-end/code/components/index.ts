@@ -1,4 +1,3 @@
-export { default as Header } from './header';
 export { default as Layout } from './layout';
 export { default as ActivePlayerStatus } from './activePlayerStatus';
 export { default as Game } from './game';

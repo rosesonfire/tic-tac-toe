@@ -8,8 +8,6 @@ import CONFIG from '@config';
 
 import { GameActionFactory } from './actions';
 import { epic as playersEpic } from './players';
-import { epic as gridEpic } from './grid';
-import { epic as logsEpic } from './logs';
 
 const initializeGame: Epic = $action => $action.pipe(
   ofType<ReturnType<typeof GameActionFactory.initializeGame>>(
@@ -72,7 +70,5 @@ export default combineEpics(
   failInitialization,
   initializeGame,
   playersEpic,
-  gridEpic,
-  logsEpic,
   startNewGame,
 );

@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createEpicMiddleware } from 'redux-observable';
-import { createWrapper, Context, MakeStore } from 'next-redux-wrapper';
+import { createWrapper, MakeStore } from 'next-redux-wrapper';
 import { Environment } from '@constants';
 
 import { epic, reducer, State } from './ducks';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const makeStore: MakeStore<State> = (_context: Context) => {
+const makeStore: MakeStore<State> = () => {
   const epicMiddleware = createEpicMiddleware();
 
   const store = configureStore({
@@ -22,7 +21,7 @@ const makeStore: MakeStore<State> = (_context: Context) => {
   return store;
 };
 
-// eslint-disable-next-line import/prefer-default-export, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line import/prefer-default-export
 export const reduxNextAppWrapper = createWrapper<State>(
   makeStore,
   {

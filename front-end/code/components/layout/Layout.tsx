@@ -4,9 +4,6 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 
 import { Children } from '@utils/react-utils';
-import { Header } from '@components';
-
-import styles from './layout.module.scss';
 
 type Props = {
   children: Children,
@@ -22,9 +19,7 @@ const Layout: NextPage<Props> = ({
       <title>{pageTitle}</title>
     </Head>
 
-    <div className={styles['fe-Layout']}>
-      <Header />
-
+    <div className="fe-Layout">
       <main>{children}</main>
     </div>
   </>

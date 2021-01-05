@@ -29,7 +29,6 @@
         "@copies/*": ["copies/*"],
         "@config": ["config"],
         "@config/*": ["config/*"],
-        "@hooks": ["hooks"],
         "@redux/*": ["redux/*"],
         "@feTypes/*": ["types/*"],
         "@errors": ["errors"],
