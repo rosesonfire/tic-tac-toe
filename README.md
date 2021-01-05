@@ -16,7 +16,7 @@ Forked code from my other project: [Understand Qur'an](https://github.com/roseso
 
 1. Persist play state on page reload
 1. Shows game logs
-1. [Static site generation with NextJS](front-end/README.md#static-site-generation)
+1. [Static site generation with NextJS](front-end/README.md#Static-site-generation-with-NextJS)
 
 # Requirements for development
 
@@ -85,7 +85,7 @@ Set `ENV=production` in [.env](.env).
 - front-end: http://localhost:3000
 - api-server: http://localhost:4000
 - redis: http://localhost:6379 (Same as development)
-- [Static site generation](front-end/README.md#static-site-generation)
+- [Static site generation](front-end/README.md#Static-site-generation-with-NextJS)
 
 # Development
 
