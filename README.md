@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-A simple tac tac toe game with
+A simple tic tac toe game with
 - React
 - Redux
 - Redux-obervables
