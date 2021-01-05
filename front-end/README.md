@@ -9,7 +9,6 @@ Front end with
 
 Set `ENV=production` in [.env](../.env).
 
-
 ## URL
 
 http://localhost:3000
@@ -36,42 +35,9 @@ NOTE: in order for the static site to work, you need to make sure:
 
 Set `ENV=development` in [.env](../.env).
 
-
 ## URL
 
 http://localhost:3001
-
-# Commands
-
-## Run service
-
-```bash
-../start front-end
-```
-
-## Restart service
-
-```bash
-../restart front-end
-```
-
-## Stop service
-
-```bash
-../stop front-end
-```
-
-## View logs
-
-```bash
-../logs front-end
-```
-
-## Shell into service
-
-```bash
-../shell front-end
-```
 
 ## Debug
 
@@ -107,3 +73,35 @@ http://localhost:3001
           ]
         }
         ```
+
+# Commands
+
+## Run service
+
+```bash
+../start front-end
+```
+
+## Restart service
+
+```bash
+../restart front-end
+```
+
+## Stop service
+
+```bash
+../stop front-end
+```
+
+## View logs
+
+```bash
+../logs front-end
+```
+
+## Shell into service
+
+```bash
+../shell front-end
+```

@@ -83,6 +83,11 @@ Set `ENV=development` in [.env](.env).
 - api-server: http://localhost:4001
 - redis: http://localhost:6379 (Same as production)
 
+## Debug
+
+- [front-end](front-end/README.md#debug)
+- [api-server](api-server/README.md#debug)
+
 # Commands
 
 ## Run services
@@ -120,8 +125,3 @@ Set `ENV=development` in [.env](.env).
 ```bash
 ./shell <service name>
 ```
-
-## Debug
-
-- [front-end](front-end/README.md#debug)
-- [api-server](api-server/README.md#debug)
